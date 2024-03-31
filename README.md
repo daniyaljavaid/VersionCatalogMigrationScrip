@@ -18,9 +18,16 @@ eg. it takes this as input
 and returns
 
 
-```lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "2.3.1"}```
+```
+[versions]
+kotlin-bom = "1.8.0"
+
+[libraries]
+kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin-bom"}
+```
 
 
 ### What's next
-Goal is to generate complete `libs.versions.toml` file & also generate updated dependencies which will be added in `build.gradle` which will reference dependencies of `toml`
+<strike>Generate complete `libs.versions.toml` file</strike>
+<strike>Generate updated dependencies which will be added in `build.gradle` which will reference dependencies of `toml`</strike>
 
