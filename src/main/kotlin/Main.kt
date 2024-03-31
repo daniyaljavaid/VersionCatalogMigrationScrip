@@ -17,6 +17,10 @@ fun main() {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     """
 
+    val versions = mutableMapOf<String, String>()
+    val libraries = mutableListOf<String>()
+    val gradleDependencies = mutableListOf<String>()
+
     inputString.split("\n")
         .filter { it.trim().isNotEmpty() }
         .forEach {
@@ -31,19 +35,28 @@ fun main() {
 
             var versionString = ""
 
-            if (arr.size == 3)
-                versionString = ", version.ref = \"${arr[2]}\""
+            if (arr.size == 3) {
+                versionString = ", version.ref = \"${name}\""
+                versions[name] = "\"${arr[2]}\""
+            }
 
             val tomlOutput = "$name = { group = \"${group}\", name = \"${name}\"${versionString}}"
+            libraries.add(tomlOutput)
 
             val startingIndex = it.trim().indexOf("\"")
             val endingIndex = it.trim().indexOf("\"", startingIndex + 1)
             val gradleOutput = it.trim().replaceRange(startingIndex, endingIndex + 1, "libs.${name.replace("-", ".")}")
+
+            gradleDependencies.add(gradleOutput)
 
             println(it.trim())
             println(filteredInput)
             println(tomlOutput)
             println(gradleOutput)
         }
+
+    println(versions)
+    println(libraries)
+    println(gradleDependencies)
 
 }
