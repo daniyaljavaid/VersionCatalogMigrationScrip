@@ -1,5 +1,4 @@
-fun main() {
-    val inputString = """
+val inputString = """
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.5.1")
@@ -17,6 +16,7 @@ fun main() {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     """
 
+fun main() {
     val versions = mutableMapOf<String, String>()
     val libraries = mutableListOf<String>()
     val gradleDependencies = mutableListOf<String>()
@@ -43,10 +43,7 @@ fun main() {
             val tomlOutput = "$name = { group = \"${group}\", name = \"${name}\"${versionString}}"
             libraries.add(tomlOutput)
 
-            val startingIndex = it.trim().indexOf("\"")
-            val endingIndex = it.trim().indexOf("\"", startingIndex + 1)
-            val gradleOutput = it.trim().replaceRange(startingIndex, endingIndex + 1, "libs.${name.replace("-", ".")}")
-
+            val gradleOutput = generateGradleOutput(it, name)
             gradleDependencies.add(gradleOutput)
 
             println(it.trim())
@@ -59,4 +56,11 @@ fun main() {
     println(libraries)
     println(gradleDependencies)
 
+}
+
+private fun generateGradleOutput(originalText: String, libName: String): String {
+    val startingIndex = originalText.trim().indexOf("\"")
+    val endingIndex = originalText.trim().indexOf("\"", startingIndex + 1)
+    return originalText.trim()
+        .replaceRange(startingIndex, endingIndex + 1, "libs.${libName.replace("-", ".")}")
 }
