@@ -34,11 +34,16 @@ fun main() {
             if (arr.size == 3)
                 versionString = ", version.ref = \"${arr[2]}\""
 
-            val output = "$name = { group = \"${group}\", name = \"${name}\"${versionString}}"
+            val tomlOutput = "$name = { group = \"${group}\", name = \"${name}\"${versionString}}"
+
+            val startingIndex = it.trim().indexOf("\"")
+            val endingIndex = it.trim().indexOf("\"", startingIndex + 1)
+            val gradleOutput = it.trim().replaceRange(startingIndex, endingIndex + 1, "libs.${name.replace("-", ".")}")
 
             println(it.trim())
             println(filteredInput)
-            println(output)
+            println(tomlOutput)
+            println(gradleOutput)
         }
 
 }
