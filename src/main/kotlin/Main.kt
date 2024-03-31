@@ -55,7 +55,9 @@ fun main() {
     println(versions)
     println(libraries)
     println(gradleDependencies)
+
     generateTomlFile(versions, libraries)
+    generateGradleFile(gradleDependencies)
 }
 
 private fun generateGradleOutput(originalText: String, libName: String): String {
