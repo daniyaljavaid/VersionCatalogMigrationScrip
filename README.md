@@ -34,6 +34,7 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 
 
 file -> build.gradle
+
 dependencies {
   implementation(platform(libs.kotlin.bom))
   implementation(libs.lifecycle.runtime.ktx)
